@@ -1,0 +1,515 @@
+<?xml version="1.0"?>
+<!-- EPS (ColoradoFourWheeler) Plugin -->
+
+	<!-- =========== PATROL =========== -->
+
+<Devices>	
+	<Device type="dimmer" id="Patrol">
+		<Name>Round Robin Patrol</Name>
+		<ConfigUI>
+		
+			<!-- Hidden checkbox to toggle deviceAction -->
+			<Field type="checkbox" id="useActionExLibrary" hidden="true" defaultValue="true">
+				<Label> </Label>
+				<Description>Enables the actionsEx library to manipulate this form for actions</Description>
+			</Field>
+			
+			<!-- Using the library hidden checkbox to disable this since readonly is not working, only allowing devices for now while in beta -->
+			<Field type="menu" id="actionType" defaultValue="device" enabledBindingId="useActionExLibrary" enabledBindingNegate="true">
+				<Label>Type:</Label>
+				<List>
+					<Option value="device">Device</Option>
+					<Option value="action">Action Group</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			
+			<Field id="actionDevice" type="menu" visibleBindingId="actionType" visibleBindingValue="device" >
+				<Label>Device:</Label>
+				<List class="indigo.devices" filter=""/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field id="actionActionGroup" type="menu" visibleBindingId="actionType" visibleBindingValue="action" >
+				<Label>Action group:</Label>
+				<List class="indigo.actionGroups" filter=""/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<!-- *********** FUNCTION: SELECTED ITEM ACTION *********** -->
+			
+			<Field type="checkbox" id="showFunctions" hidden="true" defaultValue="false">
+				<Label> </Label>
+				<Description>Determines if the item functions are shown</Description>
+			</Field>
+			
+			<Field type="menu" id="deviceFunction" defaultValue="turnOn" visibleBindingId="showFunctions" visibleBindingValue="true">
+				<Label>Action:</Label>
+				<List class="self" filter="#deviceactions#[index=deviceFunction, srcfield=actionDevice, allowui=true]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<!-- ** ACTION FIELD 1 ** -->
+			<Field type="menu" id="optionGroup1" defaultValue="hidden" hidden="true">
+				<Label>GROUP 1 DISPLAY</Label>
+				<List>
+					<Option value="hidden">Hidden</Option>
+					<Option value="textfield">Text Field</Option>
+					<Option value="menu">Menu</Option>
+					<Option value="list">List</Option>
+					<Option value="checkbox">Checkbox</Option>
+					<Option value="invtxt">Invisible text field</Option>
+					<Option value="invmnu">Invisible menu field</Option>
+					<Option value="invlst">Invisible list field</Option>
+					<Option value="invchk">Invisible checkbox field</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="label" id="lbl_field1" visibleBindingId="optionGroup1" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> 
+		</Label>
+			</Field>
+			
+			<Field id="optionLabel1" type="textfield" defaultValue="" readonly="true" visibleBindingId="optionGroup1" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label>Field:</Label>
+			</Field>
+			
+			<Field id="optionId1" type="textfield" defaultValue="" readonly="true" hidden="true">
+				<Label>Field ID:</Label>
+			</Field>
+			
+			<Field id="checkValue1" type="checkbox" visibleBindingId="optionGroup1" visibleBindingValue="checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> </Label>
+				<Description>Enable</Description>
+			</Field>
+			
+			<Field id="strValue1" type="textfield" visibleBindingId="optionGroup1" visibleBindingValue="textfield" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+			</Field>
+			
+			<Field type="menu" id="menuValue1" defaultValue="on" visibleBindingId="optionGroup1" visibleBindingValue="menu" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=1, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="list" id="listValue1" defaultValue="on" visibleBindingId="optionGroup1" visibleBindingValue="list" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=1, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<!-- ** ACTION FIELD 2 ** -->
+			<Field type="menu" id="optionGroup2" defaultValue="hidden" hidden="true">
+				<Label>GROUP 2 DISPLAY</Label>
+				<List>
+					<Option value="hidden">Hidden</Option>
+					<Option value="textfield">Text Field</Option>
+					<Option value="menu">Menu</Option>
+					<Option value="list">List</Option>
+					<Option value="checkbox">Checkbox</Option>
+					<Option value="invtxt">Invisible text field</Option>
+					<Option value="invmnu">Invisible menu field</Option>
+					<Option value="invlst">Invisible list field</Option>
+					<Option value="invchk">Invisible checkbox field</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="label" id="lbl_field2" visibleBindingId="optionGroup2" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> 
+		</Label>
+			</Field>
+			
+			<Field id="optionLabel2" type="textfield" defaultValue="" readonly="true" visibleBindingId="optionGroup2" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label>Field:</Label>
+			</Field>
+			
+			<Field id="optionId2" type="textfield" defaultValue="" readonly="true" hidden="true">
+				<Label>Field ID:</Label>
+			</Field>
+			
+			<Field id="checkValue2" type="checkbox" visibleBindingId="optionGroup2" visibleBindingValue="checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> </Label>
+				<Description>Enable</Description>
+			</Field>
+			
+			<Field id="strValue2" type="textfield" visibleBindingId="optionGroup2" visibleBindingValue="textfield" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+			</Field>
+			
+			<Field type="menu" id="menuValue2" defaultValue="on" visibleBindingId="optionGroup2" visibleBindingValue="menu" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=2, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="list" id="listValue2" defaultValue="on" visibleBindingId="optionGroup2" visibleBindingValue="list" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=2, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<!-- ** ACTION FIELD 3 ** -->
+			<Field type="menu" id="optionGroup3" defaultValue="hidden" hidden="true">
+				<Label>GROUP 3 DISPLAY</Label>
+				<List>
+					<Option value="hidden">Hidden</Option>
+					<Option value="textfield">Text Field</Option>
+					<Option value="menu">Menu</Option>
+					<Option value="list">List</Option>
+					<Option value="checkbox">Checkbox</Option>
+					<Option value="invtxt">Invisible text field</Option>
+					<Option value="invmnu">Invisible menu field</Option>
+					<Option value="invlst">Invisible list field</Option>
+					<Option value="invchk">Invisible checkbox field</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="label" id="lbl_field3" visibleBindingId="optionGroup3" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> 
+		</Label>
+			</Field>
+			
+			<Field id="optionLabel3" type="textfield" defaultValue="" readonly="true" visibleBindingId="optionGroup3" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label>Field:</Label>
+			</Field>
+			
+			<Field id="optionId3" type="textfield" defaultValue="" readonly="true" hidden="true">
+				<Label>Field ID:</Label>
+			</Field>
+			
+			<Field id="checkValue3" type="checkbox" visibleBindingId="optionGroup3" visibleBindingValue="checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> </Label>
+				<Description>Enable</Description>
+			</Field>
+			
+			<Field id="strValue3" type="textfield" visibleBindingId="optionGroup3" visibleBindingValue="textfield" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+			</Field>
+			
+			<Field type="menu" id="menuValue3" defaultValue="on" visibleBindingId="optionGroup3" visibleBindingValue="menu" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=3, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="list" id="listValue3" defaultValue="on" visibleBindingId="optionGroup3" visibleBindingValue="list" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=3, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<!-- ** ACTION FIELD 4 ** -->
+			<Field type="menu" id="optionGroup4" defaultValue="hidden" hidden="true">
+				<Label>GROUP 4 DISPLAY</Label>
+				<List>
+					<Option value="hidden">Hidden</Option>
+					<Option value="textfield">Text Field</Option>
+					<Option value="menu">Menu</Option>
+					<Option value="list">List</Option>
+					<Option value="checkbox">Checkbox</Option>
+					<Option value="invtxt">Invisible text field</Option>
+					<Option value="invmnu">Invisible menu field</Option>
+					<Option value="invlst">Invisible list field</Option>
+					<Option value="invchk">Invisible checkbox field</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="label" id="lbl_field4" visibleBindingId="optionGroup4" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> 
+		</Label>
+			</Field>
+			
+			<Field id="optionLabel4" type="textfield" defaultValue="" readonly="true" visibleBindingId="optionGroup4" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label>Field:</Label>
+			</Field>
+			
+			<Field id="optionId4" type="textfield" defaultValue="" readonly="true" hidden="true">
+				<Label>Field ID:</Label>
+			</Field>
+			
+			<Field id="checkValue4" type="checkbox" visibleBindingId="optionGroup4" visibleBindingValue="checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> </Label>
+				<Description>Enable</Description>
+			</Field>
+			
+			<Field id="strValue4" type="textfield" visibleBindingId="optionGroup4" visibleBindingValue="textfield" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+			</Field>
+			
+			<Field type="menu" id="menuValue4" defaultValue="on" visibleBindingId="optionGroup4" visibleBindingValue="menu" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=4, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="list" id="listValue4" defaultValue="on" visibleBindingId="optionGroup4" visibleBindingValue="list" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=4, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<!-- ** ACTION FIELD 5 ** -->
+			<Field type="menu" id="optionGroup5" defaultValue="hidden" hidden="true">
+				<Label>GROUP 5 DISPLAY</Label>
+				<List>
+					<Option value="hidden">Hidden</Option>
+					<Option value="textfield">Text Field</Option>
+					<Option value="menu">Menu</Option>
+					<Option value="list">List</Option>
+					<Option value="checkbox">Checkbox</Option>
+					<Option value="invtxt">Invisible text field</Option>
+					<Option value="invmnu">Invisible menu field</Option>
+					<Option value="invlst">Invisible list field</Option>
+					<Option value="invchk">Invisible checkbox field</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="label" id="lbl_field5" visibleBindingId="optionGroup5" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> 
+		</Label>
+			</Field>
+			
+			<Field id="optionLabel5" type="textfield" defaultValue="" readonly="true" visibleBindingId="optionGroup5" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label>Field:</Label>
+			</Field>
+			
+			<Field id="optionId5" type="textfield" defaultValue="" readonly="true" hidden="true">
+				<Label>Field ID:</Label>
+			</Field>
+			
+			<Field id="checkValue5" type="checkbox" visibleBindingId="optionGroup5" visibleBindingValue="checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> </Label>
+				<Description>Enable</Description>
+			</Field>
+			
+			<Field id="strValue5" type="textfield" visibleBindingId="optionGroup5" visibleBindingValue="textfield" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+			</Field>
+			
+			<Field type="menu" id="menuValue5" defaultValue="on" visibleBindingId="optionGroup5" visibleBindingValue="menu" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=5, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="list" id="listValue5" defaultValue="on" visibleBindingId="optionGroup5" visibleBindingValue="list" alwaysUseInDialogHeightCalc="true">
+				<Label>Value:</Label>
+				<List class="self" filter="#actionoptionlist_v2#[group=5, method=Pass]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>												
+			
+			<!-- *********** FUNCTION: COMMON *********** -->
+			<Field type="checkbox" id="deviceSelected" defaultValue="false" hidden="true">
+				<Label> </Label>
+				<Description>Determines if the plugin preset info is visible based on if there is a device/action selected</Description>
+			</Field>
+			
+			<Field type="label" id="lbl_afterfields" visibleBindingId="optionGroup1" visibleBindingValue="textfield,menu,list,checkbox" alwaysUseInDialogHeightCalc="true">
+				<Label> 
+		</Label>
+			</Field>
+			
+			<Field id="name" type="textfield" defaultValue="" readonly="false" alwaysUseInDialogHeightCalc="true" visibleBindingId="deviceSelected" visibleBindingValue="true">
+				<Label>Preset name:</Label>
+			</Field>
+			
+			<Field id="duration" defaultValue="10" type="textfield" visibleBindingId="deviceSelected" visibleBindingValue="true" tooltip="How long to stay in this patrol point until moving on to the next" alwaysUseInDialogHeightCalc="true">
+				<Label>Duration:</Label>
+			</Field>
+			
+			<Field type="menu" id="durationInterval" defaultValue="seconds" visibleBindingId="deviceSelected" visibleBindingValue="true" alwaysUseInDialogHeightCalc="true">
+				<Label>Interval:</Label>
+				<List>
+					<Option value="seconds">Seconds</Option>
+					<Option value="minutes">Minutes</Option>
+					<Option value="hours">Hours</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field id="randomize" defaultValue="0" type="textfield" visibleBindingId="deviceSelected" visibleBindingValue="true" tooltip="Maximum number of seconds to randomize the duration" alwaysUseInDialogHeightCalc="true">
+				<Label>Randomize:</Label>
+			</Field>
+			
+			<Field type="checkbox" id="patrolCompleteEnabled" defaultValue="false" hidden="true">
+				<Label> </Label>
+				<Description>Determines if a patrol complete menu is enabled, requires at least two patrol points</Description>
+			</Field>
+			
+			<Field type="menu" id="onComplete" defaultValue="next" visibleBindingId="deviceSelected" visibleBindingValue="true" enabledBindingId="patrolCompleteEnabled" alwaysUseInDialogHeightCalc="true">
+				<Label>When patrol completes:</Label>
+				<List>
+					<Option value="next">Go To Next Patrol Point</Option>
+					<Option value="previous">Go To Previous Patrol Point</Option>
+					<Option value="goto">Go To Patrol Point 1-10</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="label" id="lbl_button" >
+				<Label> 
+		</Label>
+			</Field>
+			
+			<Field type="checkbox" id="addVisible" defaultValue="true" hidden="true">
+				<Label> </Label>
+				<Description>Determines if the add button is visible</Description>
+			</Field>
+			
+			<Field type="button" id="add" visibleBindingId="addVisible" visibleBindingValue="true" >
+				<Label> </Label>
+				<Title>Add </Title>
+				<CallbackMethod>actionAddToListButton</CallbackMethod>
+			</Field>
+			
+			<Field type="checkbox" id="updateVisible" defaultValue="false" hidden="true">
+				<Label> </Label>
+				<Description>Determines if the update button is visible</Description>
+			</Field>
+			
+			<Field type="button" id="update" visibleBindingId="updateVisible" visibleBindingValue="true" >
+				<Label> </Label>
+				<Title>Update </Title>
+				<CallbackMethod>actionUpdateListButton</CallbackMethod>
+			</Field>
+			
+			<Field id="sep_presetinfo" type="separator"/>
+			
+			<Field id="runManually" type="checkbox" defaultValue="true" readonly="true" tooltip="If selected then this will run only when asked to from the UI, an action group, a trigger or a schedule, otherwise it will run continuously">
+				<Label> </Label>
+				<Description>Only run manually</Description>
+			</Field>
+			
+			<Field id="park" defaultValue="10" type="textfield" tooltip="How much time to wait until the routine begins again" visibleBindingId="runManually" visibleBindingValue="false" alwaysUseInDialogHeightCalc="true">
+				<Label>Wait time:</Label>
+			</Field>
+			
+			<Field id="randomizePark" defaultValue="0" type="textfield" visibleBindingId="runManually" visibleBindingValue="false" tooltip="Maximum number of minutes to randomize the duration" alwaysUseInDialogHeightCalc="true">
+				<Label>Randomize:</Label>
+			</Field>
+			
+			<Field type="menu" id="parkDurationType" defaultValue="minutes" visibleBindingId="runManually" visibleBindingValue="false" alwaysUseInDialogHeightCalc="true">
+				<Label>Wait interval:</Label>
+				<List>
+					<Option value="seconds">Seconds</Option>
+					<Option value="minutes">Minutes</Option>
+					<Option value="hours">Hours</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+
+			<Field type="menu" id="whenTurnedOff" defaultValue="stay" alwaysUseInDialogHeightCalc="true">
+				<Label>When turned off:</Label>
+				<List class="self" filter="#plugin#[list=whenTurnedOff, nocache=true, callback=listOffCommandOptions]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field id="sep_presetsettings" type="separator" />
+			
+			<Field type="checkbox" id="presetsUnlocked" defaultValue="true" hidden="true">
+				<Label> </Label>
+				<Description>Determines if the presets list is readonly</Description>
+			</Field>
+			
+			<Field id="presets" type="list" rows="12" enabledBindingId="presetsUnlocked">
+				<Label>Presets:</Label>
+				<List class="self" filter="#plugin#[list=presets, nocache=true, callback=listPatrolPoints]" method="getCustomList" dynamicReload="true"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="menu" id="presetListActions" defaultValue="edit" >
+				<Label>Selected preset:</Label>
+				<List>
+					<Option value="edit">Edit</Option>
+					<Option value="dupe">Duplicate</Option>
+					<Option value="up">Move up</Option>
+					<Option value="down">Move down</Option>
+					<Option value="remove">Remove</Option>
+				</List>
+			</Field>
+			
+			<Field type="button" id="presetListActionGo"  >
+				<Label> </Label>
+				<Title>Go </Title>
+				<CallbackMethod>btnPatrolListAction</CallbackMethod>
+			</Field>
+			
+		</ConfigUI>
+		
+		<States>
+			<!-- All EPS plugins have this state and use it for the Indigo lists -->
+			<State id="statedisplay">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Current device state</TriggerLabel>
+				<ControlPageLabel>Current device state</ControlPageLabel>
+			</State>
+			
+			<State id="sep1">
+				<ValueType>Separator</ValueType>
+			</State>
+			
+			<State id="currentPreset">
+				<ValueType>Number</ValueType>
+				<TriggerLabel>Current preset</TriggerLabel>
+				<ControlPageLabel>Current preset</ControlPageLabel>
+			</State>
+			
+			<State id="nextPreset">
+				<ValueType>Number</ValueType>
+				<TriggerLabel>Next preset</TriggerLabel>
+				<ControlPageLabel>Next preset</ControlPageLabel>
+			</State>
+			
+			<State id="sep2">
+				<ValueType>Separator</ValueType>
+			</State>
+			
+			<State id="nextPresetTime">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Date and time when next preset will activate</TriggerLabel>
+				<ControlPageLabel>Date and time when next preset will activate</ControlPageLabel>
+			</State>
+			
+			<State id="sep3">
+				<ValueType>Separator</ValueType>
+			</State>
+			
+			<State id="paused">
+				<ValueType>Boolean</ValueType>
+				<TriggerLabel>Patrol is paused</TriggerLabel>
+				<ControlPageLabel>Patrol is paused</ControlPageLabel>
+			</State>
+			
+			<State id="sep4">
+				<ValueType>Separator</ValueType>
+			</State>
+			
+			<State id="overrideActive">
+				<ValueType>Boolean</ValueType>
+				<TriggerLabel>Override is active</TriggerLabel>
+				<ControlPageLabel>Override is active</ControlPageLabel>
+			</State>
+			
+			<State id="overrideUntil">
+				<ValueType>String</ValueType>
+				<TriggerLabel>Date and time when the override will expire</TriggerLabel>
+				<ControlPageLabel>Date and time when the override will expire</ControlPageLabel>
+			</State>
+			
+			<State id="overrideResumePatrol">
+				<ValueType>Number</ValueType>
+				<TriggerLabel>Seconds remaining on current preset once override expires</TriggerLabel>
+				<ControlPageLabel>Seconds remaining on current preset once override expires</ControlPageLabel>
+			</State>
+			
+		</States>
+		<UiDisplayStateId>statedisplay</UiDisplayStateId>		
+	</Device>	
+</Devices>
