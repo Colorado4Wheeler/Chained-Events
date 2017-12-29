@@ -424,7 +424,7 @@ class actions:
 			
 			newActionItem = dict(actionItem)	
 			d = indigo.server.getTime()	
-			newActionItem["key"] = self.factory.ui.createHashKey (valuesDict["actionDevice"] + valuesDict["actionActionGroup"] + d.strftime("%Y-%m-%d %H:%M:%S"))
+			newActionItem["key"] = self.factory.ui.createHashKey (valuesDict["actionDevice"] + valuesDict["actionActionGroup"] + d.strftime("%Y-%m-%d %H:%M:%S %f"))
 			valuesDict["actionItemLibKey"] = newActionItem["key"] # So the UI form knows what the new key is
 			actionItems.append(newActionItem)
 			
@@ -502,7 +502,7 @@ class actions:
 			actionData["objectName"] = "" # Until we figure it out below, this is THE name of this item depending on the object type selected so other routines can utilize it without calculation
 			if "key" not in actionData: 
 				d = indigo.server.getTime()
-				actionData["key"] = self.factory.ui.createHashKey (valuesDict["actionDevice"] + valuesDict["actionActionGroup"] + d.strftime("%Y-%m-%d %H:%M:%S"))
+				actionData["key"] = self.factory.ui.createHashKey (valuesDict["actionDevice"] + valuesDict["actionActionGroup"] + d.strftime("%Y-%m-%d %H:%M:%S %f"))
 				
 			actionData["actionType"] = valuesDict["actionType"]
 			actionData["actionDevice"] = valuesDict["actionDevice"]
@@ -681,6 +681,10 @@ class actions:
 	def setUIDefaults (self, propsDict):
 		try:
 			self.logger.threaddebug ("Actions V2 setUIDefaults executed")
+			
+			if "useActionExLibrary" not in propsDict:
+				self.logger.debug ("Action V2 library setUIDefaults aborted, this device or action does not have the useActionExLibrary field")
+				return propsDict
 			
 			# Our action object type is always determined from a menu called "actionType", even if there is just one action that will be offered to the end user
 			# this menu will exist then as a hidden object defaulted to the desired type

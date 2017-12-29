@@ -996,9 +996,13 @@ class plug:
 			
 			retval = self._callBack (AFTER, [valuesDict, typeId, deviceId])
 			if retval is not None:
-				if "success" in retval: success = retval["success"]
-				if "valuesDict" in retval: valuesDict = retval["valuesDict"]
-				if "errorDict" in retval: errorDict = retval["errorDict"]
+				success = retval[0]
+				valuesDict = retval[1]
+				errorDict = retval[2]
+				#if "success" in retval: success = retval["success"]
+				#if "valuesDict" in retval: valuesDict = retval["valuesDict"]
+				#if "errorDict" in retval: errorDict = retval["errorDict"]
+				
 		
 		except Exception as e:
 			self.logger.error (ext.getException(e))	

@@ -3,6 +3,12 @@ Release Notes
 
 Until 2.3.1 these changes were pseudo logged elsewhere, this represents the official library release notes since then.
 
+Version 2.4.1
+---------------
+
+* Fixed minor issue with duplicating a preset list item where duplicating in rapid succession would create duplicate keys and, thus, cause two devices to share the same key and the entire list to act wonky by adding microseconds to the time variant of the key
+* Fixed bug with validateActionConfigUi in plug where a returned error dict wouldn't pop an error
+
 Version 2.4.0
 ---------------
 

@@ -12,62 +12,53 @@
 	
 	<Action id="sep_general" uiPath="DeviceActions"/>
 	
-	<Action id="forceOn" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Wrapper" uiPath="DeviceActions">
-		<Name>Force to an On state</Name>
-		<CallbackMethod>forceState</CallbackMethod>
-	</Action>
-	
-	<Action id="forceOff" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Wrapper" uiPath="DeviceActions">
-		<Name>Force to an Off state</Name>
-		<CallbackMethod>forceState</CallbackMethod>
+	<Action id="goToPreset" uiPath="DeviceActions">
+		<Name>Go To Preset</Name>
+		<CallbackMethod>actionsGoToPreset</CallbackMethod>
+		<ConfigUI>
+			<Field id="patrolDevice" type="menu" >
+				<Label>Patrol device:</Label>
+				<List class="indigo.devices" filter="com.eps.indigoplugin.chainedevents.Patrol"/>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="checkbox" id="presetsVisible" defaultValue="false" hidden="true">
+				<Label> </Label>
+				<Description>Determines if the preset list is visible</Description>
+			</Field>
+			
+			<Field id="presets" type="menu" visibleBindingId="presetsVisible" visibleBindingValue="true">
+				<Label>Select preset:</Label>
+				<List class="self" filter="#plugin#[list=presets, nocache=true, callback=actionListPresetsForDevice]" method="getCustomList" dynamicReload="true"/>
+			</Field>
+			
+			<Field id="duration" defaultValue="5" type="textfield" visibleBindingId="presetsVisible" visibleBindingValue="true" tooltip="How long to stay in this patrol point until moving on to the next" alwaysUseInDialogHeightCalc="true">
+				<Label>Duration:</Label>
+			</Field>
+			
+			<Field type="menu" id="durationInterval" defaultValue="minutes" visibleBindingId="presetsVisible" visibleBindingValue="true" alwaysUseInDialogHeightCalc="true">
+				<Label>Interval:</Label>
+				<List>
+					<Option value="seconds">Seconds</Option>
+					<Option value="minutes">Minutes</Option>
+					<Option value="hours">Hours</Option>
+				</List>
+			</Field>
+			
+			<Field type="checkbox" id="resumeAfterOverride" defaultValue="true">
+				<Label> </Label>
+				<Description>If patrol is running then resume patrol when override is completed</Description>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field type="checkbox" id="issueOffCommand" defaultValue="true" enabledBindingId="resumeAfterOverride" enabledBindingNegate="true">
+				<Label> </Label>
+				<Description>Return to "off" position, if set, when completed</Description>
+			</Field>
+			
+		</ConfigUI>
 	</Action>
 	
 	<Action id="sep_wrappers" uiPath="DeviceActions"/>
-	
-	<Action id="startHomebridge" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Server" uiPath="DeviceActions">
-		<Name>Start a Homebridge server</Name>
-		<CallbackMethod>serverActions</CallbackMethod>
-	</Action>
-	
-	<Action id="stopHomebridge" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Server" uiPath="DeviceActions">
-		<Name>Stop a Homebridge server</Name>
-		<CallbackMethod>serverActions</CallbackMethod>
-	</Action>
-	
-	<Action id="sep_server1" uiPath="DeviceActions"/>
-	
-	<Action id="reloadHomebridge" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Server" uiPath="DeviceActions">
-		<Name>Reload a Homebridge server</Name>
-		<CallbackMethod>serverActions</CallbackMethod>
-	</Action>
-	
-	<Action id="saveHomebridge" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Server" uiPath="DeviceActions">
-		<Name>Save a Homebridge server configuration</Name>
-		<CallbackMethod>serverActions</CallbackMethod>
-	</Action>
-	
-	<Action id="sep_server2" uiPath="DeviceActions"/>
-	
-	<Action id="saveReloadHomebridge" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Server" uiPath="DeviceActions">
-		<Name>Save a Homebridge server configuration and reload Homebridge</Name>
-		<CallbackMethod>serverActions</CallbackMethod>
-	</Action>
-	
-	<Action id="sep_server3" uiPath="DeviceActions"/>
-	
-	<Action id="turnonIgnore" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Alias" uiPath="DeviceActions">
-		<Name>Turn on ignore mode on an Alias device</Name>
-		<CallbackMethod>aliasActions</CallbackMethod>
-	</Action>
-	
-	<Action id="turnoffIgnore" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Alias" uiPath="DeviceActions">
-		<Name>Turn off ignore mode on an Alias device</Name>
-		<CallbackMethod>aliasActions</CallbackMethod>
-	</Action>
-	
-	<Action id="toggleIgnore" deviceFilter="com.eps.indigoplugin.homebridge.Homebridge-Alias" uiPath="DeviceActions">
-		<Name>Toggle ignore mode on an Alias device</Name>
-		<CallbackMethod>aliasActions</CallbackMethod>
-	</Action>
 	
 </Actions>

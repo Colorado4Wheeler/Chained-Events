@@ -413,6 +413,22 @@
 			
 			<Field id="sep_presetsettings" type="separator" />
 			
+			<Field id="dimWhenPatrolling" defaultValue="5" type="textfield" tooltip="If a bright or dim command is received then resume patrolling if it is running or issue the off command in how long?" alwaysUseInDialogHeightCalc="true">
+				<Label>Post dim resume or off time:</Label>
+			</Field>
+			
+			<Field type="menu" id="dimDurationType" defaultValue="minutes" alwaysUseInDialogHeightCalc="true">
+				<Label>Resume/off interval:</Label>
+				<List>
+					<Option value="seconds">Seconds</Option>
+					<Option value="minutes">Minutes</Option>
+					<Option value="hours">Hours</Option>
+				</List>
+				<CallbackMethod>formFieldChanged</CallbackMethod>
+			</Field>
+			
+			<Field id="sep_brightness" type="separator" />
+			
 			<Field type="checkbox" id="presetsUnlocked" defaultValue="true" hidden="true">
 				<Label> </Label>
 				<Description>Determines if the presets list is readonly</Description>
